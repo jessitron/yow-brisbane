@@ -7,13 +7,13 @@ import Json.Decode
 
 
 diagram =
-    "elmbp.png"
+    "elmprogram.png"
 
 
 main : Program Never Model Msg
 main =
     Html.program
-        {  init = init
+        { init = init
         , subscriptions = subscriptions
         , update = update
         , view = view
@@ -56,7 +56,8 @@ update msg model =
             { model
                 | labels = label :: model.labels
                 , newLabel = ""
-            } ! []
+            }
+                ! []
 
 
 
@@ -129,11 +130,8 @@ onEnter msg =
 
 
 
-
 -- SUBSCRIPTIONS
 
 
 subscriptions model =
     Sub.none
-
-
