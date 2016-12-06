@@ -30,3 +30,18 @@ sha: 8144808
 # parameter values
 module_to_import: Html.Attributes
 
+####
+
+# editor info
+name: jessitron.elm-rugs.UpgradeToBeginnerProgram
+group: jessitron
+artifact: elm-rugs
+version: 1.0.3
+
+# backing git repo
+repo: git@github.com-personal:jessitron/elm-rugs.git
+branch: master
+sha: 3782bb3
+
+# parameter values
+

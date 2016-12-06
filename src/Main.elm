@@ -8,7 +8,49 @@ diagram =
     "elmview.png"
 
 
+main : Program Never Model Msg
 main =
+    Html.beginnerProgram
+        { model = model
+        , update = update
+        , view = view
+        }
+
+
+
+-- MODEL
+
+
+type alias Model =
+    {}
+
+
+model : Model
+model =
+    {}
+
+
+
+-- UPDATE
+
+
+type Msg
+    = Noop
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        Noop ->
+            model
+
+
+
+-- VIEW
+
+
+view : Model -> Html Msg
+view model =
     Html.main_ []
         [ Html.canvas
             [ Html.Attributes.style
@@ -27,7 +69,7 @@ type alias Label =
     }
 
 
-drawLabels : List Label -> Html Never
+drawLabels : List Label -> Html Msg
 drawLabels labels =
     let
         formatLabel { text, x, y } =
