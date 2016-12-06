@@ -2,10 +2,11 @@ module Main exposing (main)
 
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events
 
 
 diagram =
-    "elmview.png"
+    "elmbp.png"
 
 
 main : Program Never Model Msg
@@ -22,12 +23,12 @@ main =
 
 
 type alias Model =
-    {}
+    { labels : List Label , newLabel : String }
 
 
 model : Model
 model =
-    {}
+    { labels = [ { text = "main", x = 200, y = 400 } ] , newLabel = "" }
 
 
 
@@ -36,6 +37,7 @@ model =
 
 type Msg
     = Noop
+    | NewLabel String
 
 
 update : Msg -> Model -> Model
@@ -43,6 +45,9 @@ update msg model =
     case msg of
         Noop ->
             model
+
+        NewLabel string ->
+            { model | newLabel = string }
 
 
 
@@ -58,7 +63,7 @@ view model =
                 ]
             ]
             []
-        , drawLabels [ { text = "main", x = 200, y = 400 } ]
+        , drawLabels model.labels
         ]
 
 
@@ -83,3 +88,14 @@ drawLabels labels =
                 [ Html.text text ]
     in
         Html.div [] (List.map formatLabel labels)
+
+
+newLabelInput : Model -> Html Msg
+newLabelInput model =
+    Html.input
+        [ Html.Attributes.id "newLabel"
+        , Html.Events.onInput NewLabel
+        , Html.Attributes.value model.newLabel
+        ]
+        []
+
