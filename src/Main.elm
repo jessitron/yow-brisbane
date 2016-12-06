@@ -12,7 +12,7 @@ main =
     Html.main_ []
         [ Html.canvas
             [ Html.Attributes.style
-                [ ( "backgroundImage", "url(" + diagram + ")" )
+                [ ( "backgroundImage", "url(" ++ diagram ++ ")" )
                 ]
             ]
             []
