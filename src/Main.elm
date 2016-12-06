@@ -12,8 +12,9 @@ diagram =
 
 main : Program Never Model Msg
 main =
-    Html.beginnerProgram
-        { model = model
+    Html.program
+        {  init = init
+        , subscriptions = subscriptions
         , update = update
         , view = view
         }
@@ -27,9 +28,9 @@ type alias Model =
     { labels : List Label, newLabel : String }
 
 
-model : Model
-model =
-    { labels = [ { text = "main", x = 200, y = 400 } ], newLabel = "" }
+init : ( Model, Cmd Msg )
+init =
+    { labels = [ { text = "main", x = 200, y = 400 } ], newLabel = "" } ! []
 
 
 
@@ -42,20 +43,20 @@ type Msg
     | SaveLabel Label
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Noop ->
-            model
+            model ! []
 
         NewLabel string ->
-            { model | newLabel = string }
+            { model | newLabel = string } ! []
 
         SaveLabel label ->
             { model
                 | labels = label :: model.labels
                 , newLabel = ""
-            }
+            } ! []
 
 
 
@@ -125,3 +126,14 @@ onEnter msg =
                 Noop
     in
         Html.Events.on "keydown" (Json.Decode.map tagger Html.Events.keyCode)
+
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions model =
+    Sub.none
+
+
