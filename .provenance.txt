@@ -61,3 +61,19 @@ sha: 3782bb3
 # parameter values
 input_name: newLabel
 
+####
+
+# editor info
+name: jessitron.elm-rugs.OnEnter
+group: jessitron
+artifact: elm-rugs
+version: 1.0.3
+
+# backing git repo
+repo: git@github.com-personal:jessitron/elm-rugs.git
+branch: master
+sha: 3782bb3
+
+# parameter values
+enter_message: SaveLabel
+

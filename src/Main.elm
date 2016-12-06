@@ -3,6 +3,7 @@ module Main exposing (main)
 import Html exposing (Html)
 import Html.Attributes
 import Html.Events
+import Json.Decode
 
 
 diagram =
@@ -23,12 +24,12 @@ main =
 
 
 type alias Model =
-    { labels : List Label , newLabel : String }
+    { labels : List Label, newLabel : String }
 
 
 model : Model
 model =
-    { labels = [ { text = "main", x = 200, y = 400 } ] , newLabel = "" }
+    { labels = [ { text = "main", x = 200, y = 400 } ], newLabel = "" }
 
 
 
@@ -38,6 +39,7 @@ model =
 type Msg
     = Noop
     | NewLabel String
+    | SaveLabel Label
 
 
 update : Msg -> Model -> Model
@@ -48,6 +50,12 @@ update msg model =
 
         NewLabel string ->
             { model | newLabel = string }
+
+        SaveLabel label ->
+            { model
+                | labels = label :: model.labels
+                , newLabel = ""
+            }
 
 
 
@@ -64,6 +72,7 @@ view model =
             ]
             []
         , drawLabels model.labels
+        , newLabelInput model
         ]
 
 
@@ -95,7 +104,24 @@ newLabelInput model =
     Html.input
         [ Html.Attributes.id "newLabel"
         , Html.Events.onInput NewLabel
+        , onEnter (SaveLabel { text = model.newLabel, x = 400, y = 200 })
         , Html.Attributes.value model.newLabel
+        , Html.Attributes.style
+            [ ( "position", "absolute" )
+            , ( "top", (toString 200) ++ "px" )
+            , ( "left", (toString 400) ++ "px" )
+            ]
         ]
         []
 
+
+onEnter : Msg -> Html.Attribute Msg
+onEnter msg =
+    let
+        tagger code =
+            if code == 13 then
+                msg
+            else
+                Noop
+    in
+        Html.Events.on "keydown" (Json.Decode.map tagger Html.Events.keyCode)
