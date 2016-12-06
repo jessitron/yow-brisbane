@@ -14,3 +14,19 @@ sha: 3782bb3
 # parameter values
 project_name: Yow
 
+####
+
+# editor info
+name: jessitron.elm-template.AddImport
+group: jessitron
+artifact: elm-template
+version: 1.0.3
+
+# backing git repo
+repo: git@github.com-personal:jessitron/elm-template.git
+branch: master
+sha: 8144808
+
+# parameter values
+module_to_import: Html.Attributes
+
